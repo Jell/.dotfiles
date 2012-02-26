@@ -53,9 +53,13 @@ function __git_info {
   branch=$(git branch 2> /dev/null)
   test -z "$branch" && return
   branch=$(grep '^*' <<<"$branch" | cut -c3-)
-  echo ":$branch"
+  echo "[$branch]"
 }
 
+function __draw_line {
+    line="-"
+    printf -v line "%-*s" $(tput cols) "$line"
+}
 
 echo -ne "\033]0;${USER}@${HOSTNAME} at ${PWD}\007"
 
@@ -63,7 +67,32 @@ alias ls='ls -G'
 alias xdg-open='open'
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
 
-export PS1='\[\e[1;31m\][\u@\h]\[\e[1;32m\][$(~/.rvm/bin/rvm-prompt v p g)]\e[1;36m\][\w]\n\[\e[0m\]\W$(__git_info) \$ '
+Black='\[\e[0;30m\]'  # Black
+Red='\[\e[0;31m\]'    # Red
+Green='\[\e[0;32m\]'  # Green
+Yellow='\[\e[0;33m\]' # Yellow
+Blue='\[\e[0;34m\]'   # Blue
+Purple='\[\e[0;35m\]' # Purple
+Cyan='\[\e[0;36m\]'   # Cyan
+White='\[\e[0;37m\]'  # White
+DefaultColor='\[\e[0m\]'
+
+function __happy_or_sad {
+    if [ $? = 0 ];
+    then printf "\e[0;36m✔\e[0m";
+    else printf "\e[0;31m✖\e[0m";
+    fi
+}
+
+function __right_align {
+    cols="${COLUMNS}"
+    pad=12
+    cols=$(($cols+$pad))
+    printf "%${cols}s\r" $1
+}
+
+export PS1=$Green'$(__right_align "$(__happy_or_sad)")'$Red'⎧ [\u@\h]'$Green'[$(~/.rvm/bin/rvm-prompt v p g)]'$Cyan'[\w]'$Blue'$(__git_info)\n'$Red'⎪▸ '$DefaultColor
+export PS2=$Red'⎪▸ '$DefaultColor
 
 # Jawaninja commands
 #alias jawa-torrent='ssh jawaninja@jawaninja.com transmission-cli "$1" &'
