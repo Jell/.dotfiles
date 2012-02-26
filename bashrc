@@ -79,19 +79,21 @@ DefaultColor='\[\e[0m\]'
 
 function __happy_or_sad {
     if [ $? = 0 ];
-    then printf "\e[0;36m✔\e[0m";
-    else printf "\e[0;31m✖\e[0m";
+    then printf "\e[0;32m[^_^]";
+    else printf "\e[0;31m(\/)_(;,,;)_(\/)WOOP!WOOP!WOOP!";
     fi
 }
 
 function __right_align {
     cols="${COLUMNS}"
-    pad=12
+    # Compensate for escape sequences
+    pad=14
     cols=$(($cols+$pad))
     printf "%${cols}s\r" $1
 }
 
-export PS1=$Green'$(__right_align "$(__happy_or_sad)")'$Red'⎧ [\u@\h]'$Green'[$(~/.rvm/bin/rvm-prompt v p g)]'$Cyan'[\w]'$Blue'$(__git_info)\n'$Red'⎪▸ '$DefaultColor
+export PROMPT_COMMAND=''
+export PS1='$(__right_align "$(__happy_or_sad)\e[0;36m[\t]")'$Red'⎧ [\u@\h]'$Green'[$(~/.rvm/bin/rvm-prompt v p g)]'$Cyan'[\w]'$Blue'$(__git_info)\n'$Red'⎪▸ '$DefaultColor
 export PS2=$Red'⎪▸ '$DefaultColor
 
 # Jawaninja commands
