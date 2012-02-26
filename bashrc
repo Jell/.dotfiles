@@ -79,7 +79,7 @@ DefaultColor='\[\e[0m\]'
 
 function __happy_or_sad {
     if [ $? = 0 ];
-    then printf "\e[0;32m[^_^]";
+    then printf "\e[0;32m(^,,^)";
     else printf "\e[0;31m(\/)_(;,,;)_(\/)WOOP!WOOP!WOOP!";
     fi
 }
