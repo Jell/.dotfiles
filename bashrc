@@ -65,7 +65,6 @@ alias xdg-open='open'
 
 export PS1='\[\e[1;31m\][\u@\h]\[\e[1;32m\][$(~/.rvm/bin/rvm-prompt v p g)]\e[1;36m\][\w]\n\[\e[0m\]\W$(__git_info) \$ '
 
-
 # Jawaninja commands
 #alias jawa-torrent='ssh jawaninja@jawaninja.com transmission-cli "$1" &'
 alias jawa-torrent='ssh -X jawaninja@jawaninja.com firefox "http://localhost:9091/transmission/web/" &'
@@ -78,5 +77,6 @@ alias emacs="/usr/local/Cellar/emacs/HEAD/Emacs.app/Contents/MacOS/Emacs -nw"
 export EDITOR=/usr/local/Cellar/emacs/HEAD/Emacs.app/Contents/MacOS/Emacs
 
 # Fix for rvm that doesnt want to work properly
-eval 'cd'
-eval 'cd -'
+eval 'rvm use > /dev/null'
+eval 'cd      > /dev/null'
+eval 'cd -    > /dev/null'
