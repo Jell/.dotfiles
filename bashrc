@@ -56,11 +56,6 @@ function __git_info {
   echo "[$branch]"
 }
 
-function __draw_line {
-    line="-"
-    printf -v line "%-*s" $(tput cols) "$line"
-}
-
 echo -ne "\033]0;${USER}@${HOSTNAME} at ${PWD}\007"
 
 alias ls='ls -G'
