@@ -98,9 +98,9 @@ alias jawa-firefox='ssh -X jawaninja@jawaninja.com firefox &'
 alias jawa-open='ssh -X jawaninja@jawaninja.com xdg-open . &'
 alias jawa-term='ssh -X jawaninja@jawaninja.com gnome-terminal &'
 
-alias emacs="/usr/local/Cellar/emacs/HEAD/Emacs.app/Contents/MacOS/Emacs -nw"
+alias emacs='open -a /Applications/Emacs.app "$@"'
 
-export EDITOR=/usr/local/Cellar/emacs/HEAD/Emacs.app/Contents/MacOS/Emacs
+export EDITOR='open -a /Applications/Emacs.app "$@"'
 
 # Fix for rvm that doesnt want to work properly
 eval 'rvm use > /dev/null'
