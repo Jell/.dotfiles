@@ -1,6 +1,6 @@
 if [[ -s /Users/Jell/.rvm/scripts/rvm ]] ; then source /Users/Jell/.rvm/scripts/rvm ; fi
 
-export PATH=/Users/Jell/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/sbin:/usr/X11/bin:/usr/bin:/sbin:/bin
+export PATH=/Users/Jell/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/sbin:/usr/X11/bin:/usr/bin:/sbin:/bin:/usr/local/sbin
 
 ##
 # Your previous /Users/Jell/.bash_profile file was backed up as /Users/Jell/.bash_profile.macports-saved_2010-07-18_at_16:02:30
