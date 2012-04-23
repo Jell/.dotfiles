@@ -13,6 +13,8 @@ export ARCHFLAGS='-arch x86_64'
 export DEVKITPRO=/opt/devkitpro
 export DEVKITARM=$DEVKITPRO/devkitARM
 
+#haskell bins path
+export PATH=/Users/Jell/Library/Haskell/bin:$PATH
 
 #mysql path
 export PATH=/usr/local/mysql/bin:$PATH
