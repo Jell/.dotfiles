@@ -7,6 +7,8 @@ export PATH=/Users/Jell/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/s
 ##
 export ARCHFLAGS='-arch x86_64'
 
+
+
 #devkitPRO
 export DEVKITPRO=/opt/devkitpro
 export DEVKITARM=$DEVKITPRO/devkitARM
@@ -33,9 +35,11 @@ export PATH=/Users/Jell/Library/SBT/bin:$PATH
 #Kestrel path
 export PATH=/Users/Jell/Library/Kestrel/bin:$PATH
 
+# Storm path
 export PATH=/Users/Jell/Library/Storm/bin:$PATH
 
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home
+
 
 
 function __pwd2 {
