@@ -38,6 +38,9 @@ export PATH=/Users/Jell/Library/Kestrel/bin:$PATH
 # Storm path
 export PATH=/Users/Jell/Library/Storm/bin:$PATH
 
+# lein bin path
+export PATH=/Users/Jell/.lein/bin:$PATH
+
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home
 
 
