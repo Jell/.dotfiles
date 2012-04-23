@@ -1,0 +1,3 @@
+--langmap=Lisp:+.clj
+--langmap=Lisp:+.cljs
+--extra=+q

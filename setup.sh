@@ -7,3 +7,4 @@ ln -s $DIR/bashrc       ~/.bashrc
 ln -s $DIR/gemrc        ~/.gemrc
 ln -s $DIR/irbrc        ~/.irbrc
 ln -s $DIR/rvmrc        ~/.rvmrc
+ln -s $DIR/ctags        ~/.ctags
