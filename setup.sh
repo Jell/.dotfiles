@@ -8,3 +8,4 @@ ln -s $DIR/gemrc        ~/.gemrc
 ln -s $DIR/irbrc        ~/.irbrc
 ln -s $DIR/rvmrc        ~/.rvmrc
 ln -s $DIR/ctags        ~/.ctags
+ln -s $DIR/my.cnf       ~/.my.cnf
