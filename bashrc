@@ -7,8 +7,6 @@ export PATH=/Users/Jell/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/s
 ##
 export ARCHFLAGS='-arch x86_64'
 
-
-
 #devkitPRO
 export DEVKITPRO=/opt/devkitpro
 export DEVKITARM=$DEVKITPRO/devkitARM
@@ -107,6 +105,8 @@ function __right_align {
 
 export PROMPT_COMMAND=''
 export PS1='$(__right_align "$(__happy_or_sad)\e[0;36m[\t]")'$Red'⎧ [\u@\h]'$Green'[$(~/.rvm/bin/rvm-prompt v p g)]'$Cyan'[\w]'$Blue'$(__git_info)\n'$Red'⎪▸ '$DefaultColor
+# Always start the prompt on the first column
+#export PS1="\[\033[G\]$PS1"
 export PS2=$Red'⎪▸ '$DefaultColor
 
 # Jawaninja commands
@@ -116,11 +116,16 @@ alias jawa-firefox='ssh -X jawaninja@jawaninja.com firefox &'
 alias jawa-open='ssh -X jawaninja@jawaninja.com xdg-open . &'
 alias jawa-term='ssh -X jawaninja@jawaninja.com gnome-terminal &'
 
-alias emacs='open -a /Applications/Emacs.app "$@"'
+alias emacs='open -a /Users/Jell/Applications/Emacs.app "$@"'
 
-export EDITOR='open -a /Applications/Emacs.app "$@"'
+export EDITOR='open -a /Users/Jell/Applications/Emacs.app "$@"'
 
 # Fix for rvm that doesnt want to work properly
 eval 'rvm use > /dev/null'
 eval 'cd      > /dev/null'
 eval 'cd -    > /dev/null'
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+alias ll='ls -l'
+alias l='ls'
+alias matlab='matlab -nodisplay'
