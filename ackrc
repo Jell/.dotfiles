@@ -1,0 +1,36 @@
+# Add filters for file types
+# Javascript
+--type-set
+js=.js
+
+# CoffeeScript
+--type-set
+coffee=.coffee
+
+# Both Javascript and CoffeeScript
+--type-set
+scripts=.js,.coffee
+
+# CSS
+--type-set
+css=.css
+
+# Sass, both syntaxes
+--type-set
+sass=.scss,.sass
+
+# LESS
+--type-set
+less=.less
+
+# All types of stylesheets
+--type-set
+styles=.css,.less,.sass,.scss
+
+# Assets
+--type-set
+assets=.css,.less,.sass,.scss,.js,.coffee
+
+# Ruby
+--type-set
+ruby=.rb,Gemfile,Procfile,.builder,.erb,.arb

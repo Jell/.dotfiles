@@ -9,3 +9,4 @@ ln -s $DIR/irbrc        ~/.irbrc
 ln -s $DIR/rvmrc        ~/.rvmrc
 ln -s $DIR/ctags        ~/.ctags
 ln -s $DIR/my.cnf       ~/.my.cnf
+ln -s $DIR/ackrc        ~/.ackrc

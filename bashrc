@@ -1,6 +1,9 @@
 if [[ -s /Users/Jell/.rvm/scripts/rvm ]] ; then source /Users/Jell/.rvm/scripts/rvm ; fi
 
-export PATH=/Users/Jell/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/sbin:/usr/X11/bin:/usr/bin:/sbin:/bin:/usr/local/sbin
+export PATH=/Users/Jell/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/sbin:/usr/X11/bin:/usr/bin:/sbin:/bin:/usr/local/sbin:$PATH
+
+## Rsense
+export RSENSE_HOME='/usr/local/lib/rsense-0.3'
 
 ##
 # Your previous /Users/Jell/.bash_profile file was backed up as /Users/Jell/.bash_profile.macports-saved_2010-07-18_at_16:02:30
@@ -48,9 +51,11 @@ export PATH=/Users/Jell/Library/Kestrel/bin:$PATH
 export PATH=/Users/Jell/Library/Storm/bin:$PATH
 
 # lein bin path
+export LEIN_HOME="$HOME/.lein"
 export PATH=/Users/Jell/.lein/bin:$PATH
 
-export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home
+export JVM_ARGS="-Xmx1024m -XX:MaxPermSize=256m"
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_11.jdk/Contents/Home
 
 
 
@@ -118,7 +123,8 @@ alias jawa-term='ssh -X jawaninja@jawaninja.com gnome-terminal &'
 
 alias emacs='open -a /Users/Jell/Applications/Emacs.app "$@"'
 
-export EDITOR='open -a /Users/Jell/Applications/Emacs.app "$@"'
+export EDITOR=vim
+export BUNDLER_EDITOR='open -a /Users/Jell/Applications/Emacs.app "$@"'
 
 # Fix for rvm that doesnt want to work properly
 eval 'rvm use > /dev/null'
