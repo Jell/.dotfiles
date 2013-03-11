@@ -56,8 +56,7 @@ export PATH=/Users/Jell/.lein/bin:$PATH
 
 export JVM_ARGS="-Xmx1024m -XX:MaxPermSize=256m"
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_11.jdk/Contents/Home
-
-
+export JRUBY_OPTS="-J-XX:+TieredCompilation -J-XX:TieredStopAtLevel=2 -J-noverify -J-client -J-Djruby.memory.max=1024m -J-Xmx1024m -J-Dfile.encoding=utf8"
 
 function __pwd2 {
   local wd pd
@@ -135,3 +134,8 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 alias ll='ls -l'
 alias l='ls'
 alias matlab='matlab -nodisplay'
+
+alias ngs='JRUBY_OPTS="" ruby --ng-server'
+alias ng='JRUBY_OPTS="$JRUBY_OPTS --ng"  $*'
+alias nruby='JRUBY_OPTS="$JRUBY_OPTS --ng" ruby $*'
+alias nrspec='ng rspec $*'
