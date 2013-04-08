@@ -34,3 +34,11 @@ assets=.css,.less,.sass,.scss,.js,.coffee
 # Ruby
 --type-set
 ruby=.rb,Gemfile,Procfile,.builder,.erb,.arb
+
+# Markdown
+--type-set
+markdown=.md
+
+# Config
+--type-set
+conf=.cnf

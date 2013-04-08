@@ -139,3 +139,6 @@ alias ngs='JRUBY_OPTS="" ruby --ng-server'
 alias ng='JRUBY_OPTS="$JRUBY_OPTS --ng"  $*'
 alias nruby='JRUBY_OPTS="$JRUBY_OPTS --ng" ruby $*'
 alias nrspec='ng rspec $*'
+
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
