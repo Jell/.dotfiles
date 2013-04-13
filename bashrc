@@ -78,7 +78,10 @@ function __git_info {
 
 echo -ne "\033]0;${USER}@${HOSTNAME} at ${PWD}\007"
 
-alias ls='ls -G'
+export CLICOLOR=1
+export LSCOLORS=Exfxcxdxbxegedabagacad
+export GREP_OPTIONS='--color=auto'
+
 alias xdg-open='open'
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
 
