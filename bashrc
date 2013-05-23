@@ -54,17 +54,9 @@ export PATH=/Users/Jell/Library/Storm/bin:$PATH
 export LEIN_HOME="$HOME/.lein"
 export PATH=/Users/Jell/.lein/bin:$PATH
 
-export JVM_ARGS="-Xmx1024m -XX:MaxPermSize=256m"
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_11.jdk/Contents/Home
 export JRUBY_OPTS="-J-XX:+TieredCompilation -J-XX:TieredStopAtLevel=2 -J-noverify -J-client -J-Djruby.memory.max=1024m -J-Xmx1024m -J-Dfile.encoding=utf8"
-
-function __pwd2 {
-  local wd pd
-  wd=$(pwd)
-  #wd=${PWD/$HOME/\~}
-  pd=${wd%/*}
-  echo ${pd##*/}/${wd##*/}
-}
+export JAVA_OPTS="-Xmx1024m -XX:MaxPermSize=256m -Dfile.encoding=utf8"
 
 # more gittery
 . /opt/local/share/doc/git-core/contrib/completion/git-completion.bash
@@ -142,6 +134,8 @@ alias ngs='JRUBY_OPTS="" ruby --ng-server'
 alias ng='JRUBY_OPTS="$JRUBY_OPTS --ng"  $*'
 alias nruby='JRUBY_OPTS="$JRUBY_OPTS --ng" ruby $*'
 alias nrspec='ng rspec $*'
+
+alias less='less -r'
 
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
