@@ -1,12 +1,12 @@
-if [[ -s /Users/Jell/.rvm/scripts/rvm ]] ; then source /Users/Jell/.rvm/scripts/rvm ; fi
+if [[ -s ~/.rvm/scripts/rvm ]] ; then source ~/.rvm/scripts/rvm ; fi
 
-export PATH=/Users/Jell/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/sbin:/usr/X11/bin:/usr/bin:/sbin:/bin:/usr/local/sbin:$PATH
+export PATH=~/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/sbin:/usr/X11/bin:/usr/bin:/sbin:/bin:/usr/local/sbin:$PATH
 
 ## Rsense
 export RSENSE_HOME='/usr/local/lib/rsense-0.3'
 
 ##
-# Your previous /Users/Jell/.bash_profile file was backed up as /Users/Jell/.bash_profile.macports-saved_2010-07-18_at_16:02:30
+# Your previous ~/.bash_profile file was backed up as ~/.bash_profile.macports-saved_2010-07-18_at_16:02:30
 ##
 export ARCHFLAGS='-arch x86_64'
 
@@ -15,7 +15,7 @@ export DEVKITPRO=/opt/devkitpro
 export DEVKITARM=$DEVKITPRO/devkitARM
 
 #haskell bins path
-export PATH=/Users/Jell/Library/Haskell/bin:$PATH
+export PATH=~/Library/Haskell/bin:$PATH
 
 # unregister broken GHC packages. Run this a few times to resolve dependency rot in installed packages.
 # ghc-pkg-clean -f cabal/dev/packages*.conf also works.
@@ -29,30 +29,18 @@ function ghc-pkg-clean() {
 #mysql path
 export PATH=/usr/local/mysql/bin:$PATH
 
-#pig path
-export PATH=/Users/Jell/Documents/relepig/pig-0.6.0/bin:$PATH
-# Finished adapting your PATH environment variable for use with MacPorts.
-
-export PATH=/usr/local/texlive/2011/bin/x86_64-darwin:$PATH
-
-#flood path
-export PATH=/Users/Jell/Documents/flood:$PATH
-
-#faxian path
-export PATH=/Users/Jell/Library/Faxien/bin:$PATH
-
 #SBT path
-export PATH=/Users/Jell/Library/SBT/bin:$PATH
+export PATH=~/Library/SBT/bin:$PATH
 
 #Kestrel path
-export PATH=/Users/Jell/Library/Kestrel/bin:$PATH
+export PATH=~/Library/Kestrel/bin:$PATH
 
-# Storm path
-export PATH=/Users/Jell/Library/Storm/bin:$PATH
+# Carton
+export PATH=~/.carton/bin:$PATH
 
 # lein bin path
 export LEIN_HOME="$HOME/.lein"
-export PATH=/Users/Jell/.lein/bin:$PATH
+export PATH=~/.lein/bin:$PATH
 
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_11.jdk/Contents/Home
 export JRUBY_OPTS="-J-XX:+TieredCompilation -J-XX:TieredStopAtLevel=2 -J-noverify -J-client -J-Djruby.memory.max=1024m -J-Xmx1024m -J-Dfile.encoding=utf8"
@@ -115,10 +103,10 @@ alias jawa-firefox='ssh -X jawaninja@jawaninja.com firefox &'
 alias jawa-open='ssh -X jawaninja@jawaninja.com xdg-open . &'
 alias jawa-term='ssh -X jawaninja@jawaninja.com gnome-terminal &'
 
-alias emacs='open -a /Users/Jell/Applications/Emacs.app "$@"'
+alias emacs='open -a ~/Applications/Emacs.app "$@"'
 
 export EDITOR=vim
-export BUNDLER_EDITOR='open -a /Users/Jell/Applications/Emacs.app "$@"'
+export BUNDLER_EDITOR='open -a ~/Applications/Emacs.app "$@"'
 
 # Fix for rvm that doesnt want to work properly
 eval 'rvm use > /dev/null'
