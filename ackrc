@@ -1,3 +1,7 @@
+--ignore-dir=public/assets
+--ignore-dir=public/assets_production
+--ignore-dir=public/assets_sandbox
+
 # Add filters for file types
 # Javascript
 --type-set

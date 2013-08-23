@@ -43,8 +43,8 @@ export LEIN_HOME="$HOME/.lein"
 export PATH=~/.lein/bin:$PATH
 
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_11.jdk/Contents/Home
-export JRUBY_OPTS="-J-XX:+TieredCompilation -J-XX:TieredStopAtLevel=2 -J-noverify -J-client -J-Djruby.memory.max=1024m -J-Xmx1024m -J-Dfile.encoding=utf8"
-export JAVA_OPTS="-Xmx1024m -XX:MaxPermSize=256m -Dfile.encoding=utf8"
+export JRUBY_OPTS="-J-XX:+TieredCompilation -J-XX:TieredStopAtLevel=2 -J-noverify -J-client -J-Djruby.memory.max=1024m -J-Xmx1024m -J-Dfile.encoding=utf8 -J-Djdk.certpath.disabledAlgorithms="
+export JAVA_OPTS="-Xmx1024m -XX:MaxPermSize=256m -Dfile.encoding=utf8 -Djdk.certpath.disabledAlgorithms="
 
 # more gittery
 . /opt/local/share/doc/git-core/contrib/completion/git-completion.bash
