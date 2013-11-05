@@ -1,6 +1,7 @@
-if [[ -s ~/.rvm/scripts/rvm ]] ; then source ~/.rvm/scripts/rvm ; fi
-
 export PATH=~/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/sbin:/usr/X11/bin:/usr/bin:/sbin:/bin:/usr/local/sbin:$PATH
+
+## Path to firefox CLI
+export PATH=$PATH:'/Applications/Firefox.app/Contents/MacOS'
 
 ## Rsense
 export RSENSE_HOME='/usr/local/lib/rsense-0.3'
@@ -26,6 +27,18 @@ function ghc-pkg-clean() {
     done
 }
 
+# remove all installed GHC/cabal packages, leaving ~/.cabal binaries and docs in place
+# When all else fails, use this to get out of dependency hell and start over
+function ghc-pkg-reset() {
+    read -p 'erasing all your user ghc and cabal packages - are you sure (y/n) ? ' ans
+    test x$ans == xy && ( \
+        echo 'erasing directories under ~/.ghc'; rm -rf `find ~/.ghc -maxdepth 1 -type d`; \
+        echo 'erasing ~/.cabal/lib'; rm -rf ~/.cabal/lib; \
+        echo 'erasing ~/.cabal/packages'; rm -rf ~/.cabal/packages; \
+        echo 'erasing ~/.cabal/share'; rm -rf ~/.cabal/share; \
+    )
+}
+
 #mysql path
 export PATH=/usr/local/mysql/bin:$PATH
 
@@ -35,8 +48,8 @@ export PATH=~/Library/SBT/bin:$PATH
 #Kestrel path
 export PATH=~/Library/Kestrel/bin:$PATH
 
-# Carton
-export PATH=~/.carton/bin:$PATH
+# Cask (previously carton)
+export PATH=~/.cask/bin:$PATH
 
 # lein bin path
 export LEIN_HOME="$HOME/.lein"
@@ -47,13 +60,16 @@ export JRUBY_OPTS="-J-XX:+TieredCompilation -J-XX:TieredStopAtLevel=2 -J-noverif
 export JAVA_OPTS="-Xmx1024m -XX:MaxPermSize=256m -Dfile.encoding=utf8 -Djdk.certpath.disabledAlgorithms="
 
 # more gittery
-. /opt/local/share/doc/git-core/contrib/completion/git-completion.bash
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+fi
+
 function __git_info {
-  local branch
-  branch=$(git branch 2> /dev/null)
-  test -z "$branch" && return
-  branch=$(grep '^*' <<<"$branch" | cut -c3-)
-  echo "[$branch]"
+    local branch
+    branch=$(git branch 2> /dev/null)
+    test -z "$branch" && return
+    branch=$(grep '^*' <<<"$branch" | cut -c3-)
+    echo "[$branch]"
 }
 
 echo -ne "\033]0;${USER}@${HOSTNAME} at ${PWD}\007"
@@ -63,7 +79,6 @@ export LSCOLORS=Exfxcxdxbxegedabagacad
 export GREP_OPTIONS='--color=auto'
 
 alias xdg-open='open'
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
 
 Black='\[\e[0;30m\]'  # Black
 Red='\[\e[0;31m\]'    # Red
@@ -91,7 +106,7 @@ function __right_align {
 }
 
 export PROMPT_COMMAND=''
-export PS1='$(__right_align "$(__happy_or_sad)\e[0;36m[\t]")'$Red'⎧ [\u@\h]'$Green'[$(~/.rvm/bin/rvm-prompt v p g)]'$Cyan'[\w]'$Blue'$(__git_info)\n'$Red'⎪▸ '$DefaultColor
+export PS1='$(__right_align "$(__happy_or_sad)\e[0;36m[\t]")'$Red'⎧ [\u@\h]'$Green'[$(rbenv version-name)]'$Cyan'[\w]'$Blue'$(__git_info)\n'$Red'⎪▸ '$DefaultColor
 # Always start the prompt on the first column
 #export PS1="\[\033[G\]$PS1"
 export PS2=$Red'⎪▸ '$DefaultColor
@@ -107,13 +122,8 @@ alias emacs='open -a ~/Applications/Emacs.app "$@"'
 
 export EDITOR=vim
 export BUNDLER_EDITOR='open -a ~/Applications/Emacs.app "$@"'
+export CC=/usr/bin/gcc
 
-# Fix for rvm that doesnt want to work properly
-eval 'rvm use > /dev/null'
-eval 'cd      > /dev/null'
-eval 'cd -    > /dev/null'
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 alias ll='ls -l'
 alias l='ls'
 alias matlab='matlab -nodisplay'
@@ -124,6 +134,8 @@ alias nruby='JRUBY_OPTS="$JRUBY_OPTS --ng" ruby $*'
 alias nrspec='ng rspec $*'
 
 alias less='less -r'
-
+alias bundlebinstubs='bundle install --binstubs .bundle/bin'
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
+
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
