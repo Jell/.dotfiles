@@ -1,5 +1,8 @@
 export PATH=~/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/sbin:/usr/X11/bin:/usr/bin:/sbin:/bin:/usr/local/sbin:$PATH
 
+## Add path to rbenv
+export PATH=~/.rbenv/bin:$PATH
+
 ## Path to firefox CLI
 export PATH=$PATH:'/Applications/Firefox.app/Contents/MacOS'
 
@@ -122,7 +125,6 @@ alias emacs='open -a ~/Applications/Emacs.app "$@"'
 
 export EDITOR=vim
 export BUNDLER_EDITOR='open -a ~/Applications/Emacs.app "$@"'
-export CC=/usr/bin/gcc
 
 alias ll='ls -l'
 alias l='ls'
