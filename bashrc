@@ -3,6 +3,9 @@ export PATH=~/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/sbin:/usr/X
 ## Add path to rbenv
 export PATH=~/.rbenv/bin:$PATH
 
+# Add emacs to path
+export PATH=/usr/local/Cellar/emacs/HEAD/bin:$PATH
+
 ## Path to firefox CLI
 export PATH=$PATH:'/Applications/Firefox.app/Contents/MacOS'
 
@@ -121,10 +124,13 @@ alias jawa-firefox='ssh -X jawaninja@jawaninja.com firefox &'
 alias jawa-open='ssh -X jawaninja@jawaninja.com xdg-open . &'
 alias jawa-term='ssh -X jawaninja@jawaninja.com gnome-terminal &'
 
-alias emacs='open -a ~/Applications/Emacs.app "$@"'
+alias eca='open -a /Applications/Emacs.app "$@"'
+alias ecn='emacsclient --alternate-editor="/usr/local/Cellar/emacs/HEAD/bin/emacs" "$@"'
+alias ec='ecn -n'
+alias ecc='ec -c'
 
 export EDITOR=vim
-export BUNDLER_EDITOR='open -a ~/Applications/Emacs.app "$@"'
+export BUNDLER_EDITOR=ecc
 
 alias ll='ls -l'
 alias l='ls'
