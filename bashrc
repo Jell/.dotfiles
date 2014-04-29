@@ -24,6 +24,9 @@ export DEVKITARM=$DEVKITPRO/devkitARM
 #haskell bins path
 export PATH=~/Library/Haskell/bin:$PATH
 
+# Add cabal bin path
+export PATH=~/.cabal/bin:$PATH
+
 # unregister broken GHC packages. Run this a few times to resolve dependency rot in installed packages.
 # ghc-pkg-clean -f cabal/dev/packages*.conf also works.
 function ghc-pkg-clean() {
