@@ -66,7 +66,7 @@ export PATH=~/.lein/bin:$PATH
 
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home
 export JRUBY_OPTS="-J-XX:+TieredCompilation -J-XX:TieredStopAtLevel=2 -J-noverify -J-client -J-Djruby.memory.max=1024m -J-Xmx1024m -J-Dfile.encoding=utf8 -J-Djdk.certpath.disabledAlgorithms="
-export JAVA_OPTS="-Xmx1024m -XX:MaxPermSize=256m -Dfile.encoding=utf8 -Djdk.certpath.disabledAlgorithms="
+export JAVA_OPTS="-Xmx1024m -Dfile.encoding=utf8 -Djdk.certpath.disabledAlgorithms="
 
 # more gittery
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
@@ -150,3 +150,5 @@ bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+complete -C ~/.dotfiles/thor_autocomplete -o default thor

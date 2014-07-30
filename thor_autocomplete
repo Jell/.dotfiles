@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+
+# Complete thor tasks script for bash
+# Save it somewhere and then add
+# complete -C path/to/script -o default thor
+# to your ~/.bashrc
+
+require 'fileutils'
+
+THORFILES = ['thorfile', 'Thorfile', 'thorfile.rb', 'Thorfile.rb', '*.thor']
+thor_files = THORFILES.flat_map { |rf| Dir[File.join(Dir.pwd, rf)] }
+exit 0 unless thor_files.any?
+exit 0 unless /^thor\b/ =~ ENV["COMP_LINE"]
+
+after_match = $'
+task_match = (after_match.empty? || after_match =~ /\s$/) ? nil : after_match.split.last
+
+cache_dir = File.join( ENV['HOME'], '.thor_tc_cache' )
+FileUtils.mkdir_p cache_dir
+
+cache_file = File.join(cache_dir, Dir.pwd.gsub( %r{/}, '_' ))
+
+last_task_update = thor_files.map { |file| File.mtime(file) }.max
+
+if File.exist?(cache_file) && File.mtime(cache_file) >=  last_task_update
+  task_lines = File.read(cache_file)
+else
+  task_lines = `thor list`
+  File.write(cache_file, task_lines)
+end
+
+tasks = task_lines.split("\n")[1..-1].collect {|line| line.split[1]}
+tasks = tasks.select {|t| /^#{Regexp.escape task_match}/ =~ t} if task_match
+
+# handle namespaces
+if task_match =~ /^([-\w:]+:)/
+  upto_last_colon = $1
+  after_match = $'
+  tasks = tasks.collect { |t| (t =~ /^#{Regexp.escape upto_last_colon}([-\w:]+)$/) ? "#{$1}" : t }
+end
+
+puts tasks
+exit 0
