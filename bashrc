@@ -3,14 +3,14 @@ export PATH=~/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/sbin:/usr/X
 ## Add path to rbenv
 export PATH=~/.rbenv/bin:$PATH
 
-# Add emacs to path
-export PATH=/usr/local/Cellar/emacs/HEAD/bin:$PATH
-
 ## Path to firefox CLI
-export PATH=$PATH:'/Applications/Firefox.app/Contents/MacOS'
+export PATH=/opt/homebrew-cask/Caskroom/firefox/latest/Firefox.app/Contents/MacOS:$PATH
 
 ## Rsense
 export RSENSE_HOME='/usr/local/lib/rsense-0.3'
+
+## TeX
+export PATH=$PATH:/usr/texbin:/Library/TeX/texbin/
 
 ##
 # Your previous ~/.bash_profile file was backed up as ~/.bash_profile.macports-saved_2010-07-18_at_16:02:30
@@ -46,6 +46,17 @@ function ghc-pkg-reset() {
         echo 'erasing ~/.cabal/packages'; rm -rf ~/.cabal/packages; \
         echo 'erasing ~/.cabal/share'; rm -rf ~/.cabal/share; \
     )
+}
+
+# Sync prod before deploy
+function sync-prod() {
+    git checkout master;
+    git pull;
+    git checkout prod;
+    git pull;
+    git merge master -m "merging master into prod";
+    git push origin prod;
+    git checkout master;
 }
 
 #mysql path
@@ -127,10 +138,7 @@ alias jawa-firefox='ssh -X jawaninja@jawaninja.com firefox &'
 alias jawa-open='ssh -X jawaninja@jawaninja.com xdg-open . &'
 alias jawa-term='ssh -X jawaninja@jawaninja.com gnome-terminal &'
 
-alias eca='open -a /Applications/Emacs.app "$@"'
-alias ecn='emacsclient --alternate-editor="/usr/local/Cellar/emacs/HEAD/bin/emacs" "$@"'
-alias ec='ecn -n'
-alias ecc='ec -c'
+alias emacs='emacsclient -c'
 
 export EDITOR=vim
 export BUNDLER_EDITOR=ecc
@@ -152,3 +160,7 @@ bind '"\e[B": history-search-forward'
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 complete -C ~/.dotfiles/thor_autocomplete -o default thor
+
+# added by travis gem
+[ -f /Users/Jell/.travis/travis.sh ] && source /Users/Jell/.travis/travis.sh
+export LC_ALL=en_US.UTF-8

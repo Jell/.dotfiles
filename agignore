@@ -1,1 +1,7 @@
 vendor/*
+db/er_diagram*
+resources/public/javascripts/jquery*
+spec/fixtures/vcr_cassettes/
+doc/stylesheets/fonts/
+public/fonts/
+bootstrap.min.css
