@@ -164,3 +164,10 @@ complete -C ~/.dotfiles/thor_autocomplete -o default thor
 # added by travis gem
 [ -f /Users/Jell/.travis/travis.sh ] && source /Users/Jell/.travis/travis.sh
 export LC_ALL=en_US.UTF-8
+
+
+function docker-gc {
+    docker images --quiet --filter "dangling=true" | xargs docker rmi;
+    docker volume ls --quiet --filter "dangling=true" | xargs docker volume rm;
+    echo "Cleaned up!";
+}
