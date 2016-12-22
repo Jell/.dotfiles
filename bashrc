@@ -200,7 +200,7 @@ function dinghy-connect {
         echo "existing SSH connection"
     fi
 
-    export DINGHY_SSH_SOCK
+    export PROXY_SSH_AUTH_SOCK=$DINGHY_SSH_SOCK
     eval "$(dinghy env)"
     echo "dinghy ready!"
 }
