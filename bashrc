@@ -167,7 +167,21 @@ export LC_ALL=en_US.UTF-8
 
 
 function docker-gc {
+    docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs docker rm;
     docker images --quiet --filter "dangling=true" | xargs docker rmi;
     docker volume ls --quiet --filter "dangling=true" | xargs docker volume rm;
     echo "Cleaned up!";
+}
+
+function dinghy-connect {
+    dinghy create --provider virtualbox --cpus 2 --memory 2048 || echo "already created"
+    export DINGHY_SSH_SOCK=$(dinghy ssh find /tmp/ssh-*/agent.* 2> /dev/null || echo "missing")
+    if [ "$DINGHY_SSH_SOCK" = "missing" ]; then
+        nohup dinghy ssh -A 'cat' &> /dev/null & disown
+        sleep 2
+        export DINGHY_SSH_SOCK=$(dinghy ssh find /tmp/ssh-*/agent.*)
+    fi
+    export SSH_AUTH_SOCK=$DINGHY_SSH_SOCK
+    eval "$(dinghy env)"
+    echo "dinghy ready!"
 }
