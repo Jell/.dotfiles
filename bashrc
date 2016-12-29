@@ -169,7 +169,7 @@ export LC_ALL=en_US.UTF-8
 function docker-gc {
     docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs docker rm;
     docker images --quiet --filter "dangling=true" | xargs docker rmi;
-    docker volume ls --quiet --filter "dangling=true" | xargs docker volume rm;
+    # docker volume ls --quiet --filter "dangling=true" | xargs docker volume rm;
     echo "Cleaned up!";
 }
 
@@ -200,7 +200,11 @@ function dinghy-connect {
         echo "existing SSH connection"
     fi
 
-    export PROXY_SSH_AUTH_SOCK=$DINGHY_SSH_SOCK
-    eval "$(dinghy env)"
+    dinghy env > ~/.dinghy-env
+    echo "export PROXY_SSH_AUTH_SOCK=$DINGHY_SSH_SOCK" >> ~/.dinghy-env
+    source ~/.dinghy-env
+
     echo "dinghy ready!"
 }
+
+source ~/.dinghy-env 2> /dev/null || dinghy-connect
