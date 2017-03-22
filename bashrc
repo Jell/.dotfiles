@@ -6,11 +6,14 @@ export PATH=~/.rbenv/bin:$PATH
 ## Path to firefox CLI
 export PATH=/opt/homebrew-cask/Caskroom/firefox/latest/Firefox.app/Contents/MacOS:$PATH
 
+## caskroom legacy stuff:
+export HOMEBREW_CASK_OPTS=--caskroom=/opt/homebrew-cask/Caskroom
+
 ## Rsense
 export RSENSE_HOME='/usr/local/lib/rsense-0.3'
 
 ## TeX
-export PATH=$PATH:/usr/texbin:/Library/TeX/texbin/
+export PATH=$PATH:/usr/texbin:/Library/TeX/texbin
 
 ##
 # Your previous ~/.bash_profile file was backed up as ~/.bash_profile.macports-saved_2010-07-18_at_16:02:30
@@ -59,18 +62,6 @@ function sync-prod() {
     git checkout master;
 }
 
-#mysql path
-export PATH=/usr/local/mysql/bin:$PATH
-
-#SBT path
-export PATH=~/Library/SBT/bin:$PATH
-
-#Kestrel path
-export PATH=~/Library/Kestrel/bin:$PATH
-
-# Cask (previously carton)
-export PATH=~/.cask/bin:$PATH
-
 # lein bin path
 export LEIN_HOME="$HOME/.lein"
 export PATH=~/.lein/bin:$PATH
@@ -79,10 +70,11 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home
 export JRUBY_OPTS="-J-XX:+TieredCompilation -J-XX:TieredStopAtLevel=2 -J-noverify -J-client -J-Djruby.memory.max=1024m -J-Xmx1024m -J-Dfile.encoding=utf8 -J-Djdk.certpath.disabledAlgorithms="
 export JAVA_OPTS="-Xmx1024m -Dfile.encoding=utf8 -Djdk.certpath.disabledAlgorithms="
 
-# more gittery
+# Completion
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
 fi
+bind 'set show-all-if-ambiguous on'
 
 function __git_info {
     local branch
@@ -126,10 +118,10 @@ function __right_align {
 }
 
 export PROMPT_COMMAND=''
-export PS1='$(__right_align "$(__happy_or_sad)\e[0;36m[\t]")'$Red'⎧ [\u@\h]'$Green'[$(rbenv version-name)]'$Cyan'[\w]'$Blue'$(__git_info)\n'$Red'⎪▸ '$DefaultColor
+export PS1='$(__right_align "$(__happy_or_sad)\e[0;36m[\t]")'$Green'⎧ [\u@\h]'$Cyan'[\w]'$Blue'$(__git_info)\n'$Green'⎪▸ '$DefaultColor
 # Always start the prompt on the first column
 #export PS1="\[\033[G\]$PS1"
-export PS2=$Red'⎪▸ '$DefaultColor
+export PS2=$Green'⎪▸ '$DefaultColor
 
 # Jawaninja commands
 #alias jawa-torrent='ssh jawaninja@jawaninja.com transmission-cli "$1" &'
@@ -147,13 +139,7 @@ alias ll='ls -l'
 alias l='ls'
 alias matlab='matlab -nodisplay'
 
-alias ngs='JRUBY_OPTS="" ruby --ng-server'
-alias ng='JRUBY_OPTS="$JRUBY_OPTS --ng"  $*'
-alias nruby='JRUBY_OPTS="$JRUBY_OPTS --ng" ruby $*'
-alias nrspec='ng rspec $*'
-
 alias less='less -r'
-alias bundlebinstubs='bundle install --binstubs .bundle/bin'
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
@@ -161,8 +147,6 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 complete -C ~/.dotfiles/thor_autocomplete -o default thor
 
-# added by travis gem
-[ -f /Users/Jell/.travis/travis.sh ] && source /Users/Jell/.travis/travis.sh
 export LC_ALL=en_US.UTF-8
 
 
