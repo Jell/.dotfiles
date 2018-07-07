@@ -6,9 +6,6 @@ export PATH=~/.rbenv/bin:$PATH
 ## Path to firefox CLI
 export PATH=/opt/homebrew-cask/Caskroom/firefox/latest/Firefox.app/Contents/MacOS:$PATH
 
-## caskroom legacy stuff:
-export HOMEBREW_CASK_OPTS=--caskroom=/opt/homebrew-cask/Caskroom
-
 ## Rsense
 export RSENSE_HOME='/usr/local/lib/rsense-0.3'
 
@@ -29,6 +26,9 @@ export PATH=~/Library/Haskell/bin:$PATH
 
 # Add cabal bin path
 export PATH=~/.cabal/bin:$PATH
+
+# GPG crap
+export GPG_TTY=$(tty)
 
 # unregister broken GHC packages. Run this a few times to resolve dependency rot in installed packages.
 # ghc-pkg-clean -f cabal/dev/packages*.conf also works.
@@ -74,6 +74,7 @@ export JAVA_OPTS="-Xmx1024m -Dfile.encoding=utf8 -Djdk.certpath.disabledAlgorith
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
 fi
+
 bind 'set show-all-if-ambiguous on'
 
 function __git_info {
@@ -149,46 +150,5 @@ complete -C ~/.dotfiles/thor_autocomplete -o default thor
 
 export LC_ALL=en_US.UTF-8
 
+alias travis='docker run --rm -v $PWD:/repo -v ~/.travis:/travis andredumas/travis-ci-cli'
 
-function docker-gc {
-    docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs docker rm;
-    docker images --quiet --filter "dangling=true" | xargs docker rmi;
-    # docker volume ls --quiet --filter "dangling=true" | xargs docker volume rm;
-    echo "Cleaned up!";
-}
-
-function dinghy-connect {
-    # Make sure SSH agent is running
-    ssh-add -K
-
-    # Make sure dinghy is up and running
-    dinghy create 2> /dev/null || echo "dinghy VM already created"
-    dinghy up     2> /dev/null || echo "dinghy VM already running"
-
-    # Check if SSH forwarding is already in place
-    DINGHY_SSH_SOCK=$(dinghy ssh find /tmp/ssh-*/agent.* 2> /dev/null || echo "missing")
-    if [ "$DINGHY_SSH_SOCK" = "missing" ]; then
-        echo "starting SSH connection"
-        # Cleanup dangling SSH connections (just in case)
-        dinghy ssh 'sudo rm -rf /tmp/ssh-*'
-
-        # Run an ssh connection:
-        # - using an emulated terminal (-t)
-        # - in the background (-fn)
-        # - with ssh-agent forwarding (-A)
-        dinghy ssh -tfnA 'while true; do sleep 1000; done'
-
-        # Lookup the socket on the dinghy VM
-        DINGHY_SSH_SOCK=$(dinghy ssh find /tmp/ssh-*/agent.*)
-    else
-        echo "existing SSH connection"
-    fi
-
-    dinghy env > ~/.dinghy-env
-    echo "export PROXY_SSH_AUTH_SOCK=$DINGHY_SSH_SOCK" >> ~/.dinghy-env
-    source ~/.dinghy-env
-
-    echo "dinghy ready!"
-}
-
-source ~/.dinghy-env 2> /dev/null || dinghy-connect
