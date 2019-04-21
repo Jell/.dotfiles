@@ -12,6 +12,9 @@ export RSENSE_HOME='/usr/local/lib/rsense-0.3'
 ## TeX
 export PATH=$PATH:/usr/texbin:/Library/TeX/texbin
 
+## Go bins
+export PATH=$PATH:~/go/bin/
+
 ##
 # Your previous ~/.bash_profile file was backed up as ~/.bash_profile.macports-saved_2010-07-18_at_16:02:30
 ##
@@ -28,28 +31,8 @@ export PATH=~/Library/Haskell/bin:$PATH
 export PATH=~/.cabal/bin:$PATH
 
 # GPG crap
-export GPG_TTY=$(tty)
-
-# unregister broken GHC packages. Run this a few times to resolve dependency rot in installed packages.
-# ghc-pkg-clean -f cabal/dev/packages*.conf also works.
-function ghc-pkg-clean() {
-    for p in `ghc-pkg check $* 2>&1  | grep problems | awk '{print $6}' | sed -e 's/:$//'`
-    do
-        echo unregistering $p; ghc-pkg $* unregister $p
-    done
-}
-
-# remove all installed GHC/cabal packages, leaving ~/.cabal binaries and docs in place
-# When all else fails, use this to get out of dependency hell and start over
-function ghc-pkg-reset() {
-    read -p 'erasing all your user ghc and cabal packages - are you sure (y/n) ? ' ans
-    test x$ans == xy && ( \
-        echo 'erasing directories under ~/.ghc'; rm -rf `find ~/.ghc -maxdepth 1 -type d`; \
-        echo 'erasing ~/.cabal/lib'; rm -rf ~/.cabal/lib; \
-        echo 'erasing ~/.cabal/packages'; rm -rf ~/.cabal/packages; \
-        echo 'erasing ~/.cabal/share'; rm -rf ~/.cabal/share; \
-    )
-}
+GPG_TTY=$(tty)
+export GPG_TTY
 
 # Sync prod before deploy
 function sync-prod() {
@@ -71,8 +54,9 @@ export JRUBY_OPTS="-J-XX:+TieredCompilation -J-XX:TieredStopAtLevel=2 -J-noverif
 export JAVA_OPTS="-Xmx1024m -Dfile.encoding=utf8 -Djdk.certpath.disabledAlgorithms="
 
 # Completion
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    . $(brew --prefix)/etc/bash_completion
+if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
+  # shellcheck source=/dev/null
+  . "$(brew --prefix)/etc/bash_completion"
 fi
 
 bind 'set show-all-if-ambiguous on'
@@ -81,11 +65,11 @@ function __git_info {
     local branch
     branch=$(git branch 2> /dev/null)
     test -z "$branch" && return
-    branch=$(grep '^*' <<<"$branch" | cut -c3-)
+    branch=$(grep '^\*' <<<"$branch" | cut -c3-)
     echo "[$branch]"
 }
 
-echo -ne "\033]0;${USER}@${HOSTNAME} at ${PWD}\007"
+echo -ne "\\033]0;${USER}@${HOSTNAME} at ${PWD}\\007"
 
 export CLICOLOR=1
 export LSCOLORS=Exfxcxdxbxegedabagacad
@@ -93,20 +77,20 @@ export GREP_OPTIONS='--color=auto'
 
 alias xdg-open='open'
 
-Black='\[\e[0;30m\]'  # Black
-Red='\[\e[0;31m\]'    # Red
-Green='\[\e[0;32m\]'  # Green
-Yellow='\[\e[0;33m\]' # Yellow
-Blue='\[\e[0;34m\]'   # Blue
-Purple='\[\e[0;35m\]' # Purple
-Cyan='\[\e[0;36m\]'   # Cyan
-White='\[\e[0;37m\]'  # White
+# Black='\[\e[0;30m\]'
+# Red='\[\e[0;31m\]'
+Green='\[\e[0;32m\]'
+# Yellow='\[\e[0;33m\]'
+Blue='\[\e[0;34m\]'
+# Purple='\[\e[0;35m\]'
+Cyan='\[\e[0;36m\]'
+# White='\[\e[0;37m\]'
 DefaultColor='\[\e[0m\]'
 
 function __happy_or_sad {
     if [ $? = 0 ];
-    then printf "\e[0;32m(^,,^)";
-    else printf "\e[0;31m(\/)_(;,,;)_(\/)WOOP!WOOP!WOOP!";
+    then printf "\\e[0;32m(^,,^)";
+    else printf "\\e[0;31m(\\/)_(;,,;)_(\\/)WOOP!WOOP!WOOP!";
     fi
 }
 
@@ -114,12 +98,12 @@ function __right_align {
     cols="${COLUMNS}"
     # Compensate for escape sequences
     pad=14
-    cols=$(($cols+$pad))
-    printf "%${cols}s\r" $1
+    cols=$((cols+pad))
+    printf "%${cols}s\\r" "$1"
 }
 
 export PROMPT_COMMAND=''
-export PS1='$(__right_align "$(__happy_or_sad)\e[0;36m[\t]")'$Green'⎧ [\u@\h]'$Cyan'[\w]'$Blue'$(__git_info)\n'$Green'⎪▸ '$DefaultColor
+export PS1='$(__right_align "$(__happy_or_sad)\[\e[0;36m\][\t]")'$Green'⎧ [\u@\h]'$Cyan'[\w]'$Blue'$(__git_info)\n'$Green'⎪▸ '$DefaultColor
 # Always start the prompt on the first column
 #export PS1="\[\033[G\]$PS1"
 export PS2=$Green'⎪▸ '$DefaultColor
@@ -144,7 +128,7 @@ alias less='less -r'
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+if command -v rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 complete -C ~/.dotfiles/thor_autocomplete -o default thor
 
@@ -152,3 +136,25 @@ export LC_ALL=en_US.UTF-8
 
 alias travis='docker run --rm -v $PWD:/repo -v ~/.travis:/travis andredumas/travis-ci-cli'
 
+alias runbash='docker-compose run --rm bash'
+### Functions for setting and getting environment variables from the OSX keychain ###
+### Adapted from https://www.netmeister.org/blog/keychain-passwords.html ###
+
+# Use: keychain-environment-variable SECRET_ENV_VAR
+function keychain-environment-variable () {
+    security find-generic-password -w -a "${USER}" -D "environment variable" -s "${1}"
+}
+
+# Use: set-keychain-environment-variable SECRET_ENV_VAR
+#   provide: super_secret_key_abc123
+function set-keychain-environment-variable () {
+    [ -n "$1" ] || printf "Missing environment variable name"
+
+    read -r -s -p "Enter Value for ${1}: " secret
+
+    [ -n "$1" ] && [ -n "$secret" ] || return 1
+    security add-generic-password -U -a "${USER}" -D "environment variable" -s "${1}" -w "${secret}"
+}
+
+GITHUB_REPO_ADMIN="$(keychain-environment-variable GITHUB_REPO_ADMIN)"
+export GITHUB_REPO_ADMIN

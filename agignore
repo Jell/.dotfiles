@@ -5,3 +5,4 @@ spec/fixtures/vcr_cassettes/
 doc/stylesheets/fonts/
 public/fonts/
 bootstrap.min.css
+read-only-backup/

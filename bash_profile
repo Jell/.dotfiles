@@ -10,3 +10,4 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export PATH="/usr/local/opt/apr/bin:$PATH"
 export PATH="/usr/local/opt/apr-util/bin:$PATH"
 export PATH="/usr/local/opt/ab/bin:$PATH"
+export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
