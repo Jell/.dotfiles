@@ -15,6 +15,9 @@ export PATH=$PATH:/usr/texbin:/Library/TeX/texbin
 ## Go bins
 export PATH=$PATH:~/go/bin/
 
+## Deploy scripts
+export PATH=$PATH:~/Zimpler/ecs-deploy-scripts
+
 ##
 # Your previous ~/.bash_profile file was backed up as ~/.bash_profile.macports-saved_2010-07-18_at_16:02:30
 ##
@@ -29,6 +32,9 @@ export PATH=~/Library/Haskell/bin:$PATH
 
 # Add cabal bin path
 export PATH=~/.cabal/bin:$PATH
+
+# Python 3 bin paths
+export PATH=~/Library/Python/3.7/bin:$PATH
 
 # GPG crap
 GPG_TTY=$(tty)
@@ -158,3 +164,24 @@ function set-keychain-environment-variable () {
 
 GITHUB_REPO_ADMIN="$(keychain-environment-variable GITHUB_REPO_ADMIN)"
 export GITHUB_REPO_ADMIN
+
+function get-ecs-env () {
+  ENVIRONMENT=$1
+  PROJECT=$2
+  SECRETS_PATH="/${PROJECT}/${ENVIRONMENT}/"
+
+  aws ssm get-parameters-by-path --with-decryption --recursive --path "$SECRETS_PATH" \
+    | jq -r '.Parameters | sort_by(.Name) | .[] | .Name + "=\"" + .Value + "\""'  \
+    | sed -e "s~$SECRETS_PATH~~"
+}
+
+
+function delete-merged-branches () {
+  git remote update --prune
+  for BRANCH in $(git branch --remote --merged | grep -v "master")
+  do
+    REMOTE="$(echo "$BRANCH" | cut -d'/' -f1)"
+    BRANCH="$(echo "$BRANCH" | cut -d'/' -f2)"
+    git push "$REMOTE" --delete "$BRANCH"
+  done
+}
