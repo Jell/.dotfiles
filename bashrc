@@ -1,4 +1,4 @@
-export PATH=~/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/sbin:/usr/X11/bin:/usr/bin:/sbin:/bin:/usr/local/sbin:$PATH
+export PATH=~/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/sbin:/usr/X11/bin:/usr/bin:/sbin:/bin:/usr/local/sbin:~/.local/bin/:~/bin:$PATH
 
 ## Add path to rbenv
 export PATH=~/.rbenv/bin:$PATH
@@ -18,6 +18,9 @@ export PATH=$PATH:~/go/bin/
 ## Deploy scripts
 export PATH=$PATH:~/Zimpler/ecs-deploy-scripts
 
+## kubebuilder
+export PATH=$PATH:/usr/local/kubebuilder/bin
+
 ##
 # Your previous ~/.bash_profile file was backed up as ~/.bash_profile.macports-saved_2010-07-18_at_16:02:30
 ##
@@ -35,6 +38,12 @@ export PATH=~/.cabal/bin:$PATH
 
 # Python 3 bin paths
 export PATH=~/Library/Python/3.7/bin:$PATH
+
+# Go bin path
+export PATH=$PATH:$(go env GOPATH)/bin
+
+# Go private repos
+export GOPRIVATE="github.com/Zimpler/*"
 
 # GPG crap
 GPG_TTY=$(tty)
@@ -164,6 +173,43 @@ function set-keychain-environment-variable () {
 
 GITHUB_REPO_ADMIN="$(keychain-environment-variable GITHUB_REPO_ADMIN)"
 export GITHUB_REPO_ADMIN
+export GITHUB_TOKEN=$GITHUB_REPO_ADMIN
+
+function backup-github () {
+  curl -s "https://$GITHUB_REPO_ADMIN:@api.github.com/orgs/Zimpler/repos?per_page=100&page=1" \
+    | jq ".[].ssh_url" \
+    | xargs -n 1 git clone --recursive
+  curl -s "https://$GITHUB_REPO_ADMIN:@api.github.com/orgs/Zimpler/repos?per_page=100&page=2" \
+    | jq ".[].ssh_url" \
+    | xargs -n 1 git clone --recursive
+}
+
+function backup-sops () {
+  for SOPS_FILE in $(find . -name "*.sops")
+  do
+    FILE="$(dirname "$SOPS_FILE")/$(basename "$SOPS_FILE" .sops)"
+    echo "${FILE}.sops"
+    sops --decrypt "${FILE}.sops" \
+      | gpg --batch --yes --encrypt -o "${FILE}.gpg" -r jean-louis@jawaninja.com
+  done
+}
+
+function backup-secrets () {
+  aws ssm describe-parameters \
+    | jq .Parameters[].Name \
+    | xargs -L 10 aws ssm get-parameters --with-decryption --names \
+    | jq .Parameters[] \
+    | gpg --batch --yes --encrypt -o secrets.json.gpg -r jean-louis@jawaninja.com
+}
+
+function backup-zimpler () {
+  echo "Backing up github"
+  backup-github
+  echo "Backing up sops"
+  backup-sops
+  echo "Backing up secrets"
+  backup-secrets
+}
 
 function get-ecs-env () {
   ENVIRONMENT=$1
@@ -185,3 +231,11 @@ function delete-merged-branches () {
     git push "$REMOTE" --delete "$BRANCH"
   done
 }
+
+# autocomplete
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+
+# kubernetes crap
+source <(kubectl completion bash)
+alias k=kubectl
+complete -F __start_kubectl k
