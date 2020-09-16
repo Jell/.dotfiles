@@ -16,6 +16,7 @@ export PATH=$PATH:/usr/texbin:/Library/TeX/texbin
 export PATH=$PATH:~/go/bin/
 
 ## Deploy scripts
+export PATH=$PATH:~/Zimpler/arthur
 export PATH=$PATH:~/Zimpler/ecs-deploy-scripts
 
 ## kubebuilder
@@ -221,6 +222,16 @@ function get-ecs-env () {
     | sed -e "s~$SECRETS_PATH~~"
 }
 
+function get-eks-env () {
+  ENVIRONMENT=$1
+  PROJECT=$2
+  TARGET=${3:-shared}
+  SECRETS_PATH="/eks/${ENVIRONMENT}/${PROJECT}/${TARGET}/"
+
+  aws ssm get-parameters-by-path --with-decryption --recursive --path "$SECRETS_PATH" \
+    | jq -r '.Parameters | sort_by(.Name) | .[] | .Name + "=\"" + .Value + "\""'  \
+    | sed -e "s~$SECRETS_PATH~~"
+}
 
 function delete-merged-branches () {
   git remote update --prune
