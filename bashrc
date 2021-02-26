@@ -131,6 +131,7 @@ alias jawa-firefox='ssh -X jawaninja@jawaninja.com firefox &'
 alias jawa-open='ssh -X jawaninja@jawaninja.com xdg-open . &'
 alias jawa-term='ssh -X jawaninja@jawaninja.com gnome-terminal &'
 
+export ALTERNATE_EDITOR=""
 alias emacs='emacsclient -c'
 
 export EDITOR=vim
@@ -250,3 +251,8 @@ function delete-merged-branches () {
 source <(kubectl completion bash)
 alias k=kubectl
 complete -F __start_kubectl k
+
+arthur completion > ~/.arthur_completion
+source ~/.arthur_completion
+
+eval "$(direnv hook bash)"
