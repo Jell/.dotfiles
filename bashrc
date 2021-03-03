@@ -256,3 +256,4 @@ arthur completion > ~/.arthur_completion
 source ~/.arthur_completion
 
 eval "$(direnv hook bash)"
+[ -f "/Users/jell/.ghcup/env" ] && source "/Users/jell/.ghcup/env" # ghcup-env

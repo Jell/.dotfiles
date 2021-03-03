@@ -12,3 +12,4 @@ export PATH="/usr/local/opt/apr-util/bin:$PATH"
 export PATH="/usr/local/opt/ab/bin:$PATH"
 export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 export PATH="/usr/local/opt/libpq/bin:$PATH"
+[[ -f ~/.bashrc ]] && source ~/.bashrc # ghcup-env
