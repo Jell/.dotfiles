@@ -257,3 +257,9 @@ source ~/.arthur_completion
 
 eval "$(direnv hook bash)"
 [ -f "/Users/jell/.ghcup/env" ] && source "/Users/jell/.ghcup/env" # ghcup-env
+source "$HOME/.cargo/env"
+
+alias nats_box="docker run --rm -it --net=host synadia/nats-box"
+
+
+alias gerp=grep
