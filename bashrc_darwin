@@ -50,17 +50,6 @@ export GOPRIVATE="github.com/Zimpler/*"
 GPG_TTY=$(tty)
 export GPG_TTY
 
-# Sync prod before deploy
-function sync-prod() {
-    git checkout master;
-    git pull;
-    git checkout prod;
-    git pull;
-    git merge master -m "merging master into prod";
-    git push origin prod;
-    git checkout master;
-}
-
 # lein bin path
 export LEIN_HOME="$HOME/.lein"
 export PATH=~/.lein/bin:$PATH
