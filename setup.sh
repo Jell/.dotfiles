@@ -15,13 +15,13 @@ ln -sf "$DIR/tmate.conf"   ~/.tmate.conf
 # platform specific
 case "$(uname -s)" in
   Linux*)
-    ln -sf "$DIR/bashrc_linux"  ~/.bashrc
-    ln -sf "$DIR/bash_aliases"  ~/.bash_aliases
-    ln -sf "$DIR/tmux.conf"     ~/.tmux_linux.conf
+    ln -sf "$DIR/bashrc_linux"    ~/.bashrc
+    ln -sf "$DIR/bash_aliases"    ~/.bash_aliases
+    ln -sf "$DIR/tmux_linux.conf" ~/.tmux.conf
     ;;
   Darwin*)
-    ln -sf "$DIR/bashrc_darwin" ~/.bashrc
-    ln -sf "$DIR/tmux.conf"     ~/.tmux_darwin.conf
+    ln -sf "$DIR/bashrc_darwin"    ~/.bashrc
+    ln -sf "$DIR/tmux_darwin.conf" ~/.tmux.conf
     cp com.googlecode.iterm2.plist ~/Library/Preferences
     ;;
   *)

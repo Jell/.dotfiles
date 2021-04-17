@@ -68,51 +68,48 @@ else
 fi
 unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    # Black='\[\e[0;30m\]'
-    # Red='\[\e[0;31m\]'
-    Green='\[\e[0;32m\]'
-    # Yellow='\[\e[0;33m\]'
-    Blue='\[\e[0;34m\]'
-    # Purple='\[\e[0;35m\]'
-    Cyan='\[\e[0;36m\]'
-    # White='\[\e[0;37m\]'
-    DefaultColor='\[\e[0m\]'
 
-    function __git_info {
-      local branch
-      branch=$(git branch 2> /dev/null)
-      test -z "$branch" && return
-      branch=$(grep '^\*' <<<"$branch" | cut -c3-)
-      echo "[$branch]"
-    }
+# Better prompt --------------------------------------
+# Black='\[\e[0;30m\]'
+# Red='\[\e[0;31m\]'
+Green='\[\e[0;32m\]'
+# Yellow='\[\e[0;33m\]'
+Blue='\[\e[0;34m\]'
+# Purple='\[\e[0;35m\]'
+Cyan='\[\e[0;36m\]'
+# White='\[\e[0;37m\]'
+DefaultColor='\[\e[0m\]'
 
-    function __happy_or_sad {
-      if [ $? = 0 ];
-      then printf "\\e[0;32m(^,,^)";
-      else printf "\\e[0;31m(\\/)_(;,,;)_(\\/)WOOP!WOOP!WOOP!";
-      fi
-    }
+function __git_info {
+  local branch
+  branch=$(git branch 2> /dev/null)
+  test -z "$branch" && return
+  branch=$(grep '^\*' <<<"$branch" | cut -c3-)
+  echo "[$branch]"
+}
 
-    function __right_align {
-      cols="${COLUMNS}"
-      # Compensate for escape sequences
-      pad=14
-      cols=$((cols+pad))
-      printf "%${cols}s\\r" "$1"
-    }
+function __happy_or_sad {
+  if [ $? = 0 ];
+  then printf "\\e[0;32m(^,,^)";
+  else printf "\\e[0;31m(\\/)_(;,,;)_(\\/)WOOP!WOOP!WOOP!";
+  fi
+}
 
-    PROMPT_COMMAND=''
-    PS1='$(__right_align "$(__happy_or_sad)\[\e[0;36m\][\t]")'$Green'⎧[\u@\h]'$Cyan'[\w]'$Blue'$(__git_info)\n'$Green'⎪▸ '$DefaultColor
-    # Always start the prompt on the first column
-    #export PS1="\[\033[G\]$PS1"
-    PS2=$Green'⎪▸ '$DefaultColor
-    ;;
-*)
-    ;;
-esac
+function __right_align {
+  cols="${COLUMNS}"
+  # Compensate for escape sequences
+  pad=14
+  cols=$((cols+pad))
+  printf "%${cols}s\\r" "$1"
+}
+
+PROMPT_COMMAND=''
+PS1='$(__right_align "$(__happy_or_sad)\[\e[0;36m\][\t]")'$Green'⎧[\u@\h]'$Cyan'[\w]'$Blue'$(__git_info)\n'$Green'⎪▸ '$DefaultColor
+# Always start the prompt on the first column
+#export PS1="\[\033[G\]$PS1"
+PS2=$Green'⎪▸ '$DefaultColor
+#/ Better prompt --------------------------------------
+
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
