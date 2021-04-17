@@ -11,16 +11,17 @@ ln -sf "$DIR/my.cnf"       ~/.my.cnf
 ln -sf "$DIR/ackrc"        ~/.ackrc
 ln -sf "$DIR/agignore"     ~/.agignore
 ln -sf "$DIR/tmate.conf"   ~/.tmate.conf
-ln -sf "$DIR/tmux.conf"    ~/.tmux.conf
 
 # platform specific
 case "$(uname -s)" in
   Linux*)
     ln -sf "$DIR/bashrc_linux"  ~/.bashrc
     ln -sf "$DIR/bash_aliases"  ~/.bash_aliases
+    ln -sf "$DIR/tmux.conf"     ~/.tmux_linux.conf
     ;;
   Darwin*)
     ln -sf "$DIR/bashrc_darwin" ~/.bashrc
+    ln -sf "$DIR/tmux.conf"     ~/.tmux_darwin.conf
     cp com.googlecode.iterm2.plist ~/Library/Preferences
     ;;
   *)
