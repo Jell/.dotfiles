@@ -1,3 +1,5 @@
+export ALTERNATE_EDITOR=""
+alias emacs='emacsclient -c'
 
 alias nats_box="docker run --rm -it --net=host synadia/nats-box"
 
