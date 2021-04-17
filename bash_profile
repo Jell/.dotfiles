@@ -13,5 +13,5 @@ export PATH="/usr/local/opt/ab/bin:$PATH"
 export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 export PATH="/usr/local/opt/libpq/bin:$PATH"
 [[ -f ~/.bashrc ]] && source ~/.bashrc # ghcup-env
-source "$HOME/.cargo/env"
+[[ -f ~/.cargo/env ]] && source "~/.cargo/env"
 export PATH="$PATH:/Users/jell/.nsc/bin"

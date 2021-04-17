@@ -17,6 +17,7 @@ ln -sf "$DIR/tmux.conf"    ~/.tmux.conf
 case "$(uname -s)" in
   Linux*)
     ln -sf "$DIR/bashrc_linux"  ~/.bashrc
+    ln -sf "$DIR/bash_aliases"  ~/.bash_aliases
     ;;
   Darwin*)
     ln -sf "$DIR/bashrc_darwin" ~/.bashrc

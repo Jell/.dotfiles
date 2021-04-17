@@ -2,6 +2,11 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+PATH=$PATH:~/Zimpler/arthur
+PATH=$PATH:~/.local/bin
+
+export PATH
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -152,3 +157,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"

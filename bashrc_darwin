@@ -17,7 +17,6 @@ export PATH=$PATH:~/go/bin/
 
 ## Deploy scripts
 export PATH=$PATH:~/Zimpler/arthur
-export PATH=$PATH:~/Zimpler/ecs-deploy-scripts
 
 ## kubebuilder
 export PATH=$PATH:/usr/local/kubebuilder/bin
