@@ -7,4 +7,5 @@ public/fonts/
 bootstrap.min.css
 read-only-backup/
 NewBotoVersion/
+kubeval-schema
 go.sum

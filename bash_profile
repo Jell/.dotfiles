@@ -15,3 +15,4 @@ export PATH="/usr/local/opt/libpq/bin:$PATH"
 [[ -f ~/.bashrc ]] && source ~/.bashrc # ghcup-env
 [[ -f ~/.cargo/env ]] && source ~/.cargo/env
 export PATH="$PATH:/Users/jell/.nsc/bin"
+. "$HOME/.cargo/env"
