@@ -43,7 +43,7 @@ export PATH=~/Library/Python/3.7/bin:$PATH
 export PATH=$PATH:$(go env GOPATH)/bin
 
 # Go private repos
-export GOPRIVATE="github.com/Zimpler/*"
+export GOPRIVATE="github.com/Zimpler/*,gitlab.zimpler.com/*"
 
 # GPG crap
 GPG_TTY=$(tty)

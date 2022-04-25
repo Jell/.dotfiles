@@ -6,7 +6,7 @@ PATH=$PATH:~/Zimpler/arthur
 PATH=$PATH:~/.local/bin
 PATH=$PATH:/usr/local/go/bin
 PATH=$PATH:~/go/bin
-
+PATH=$PATH:~/.yarn/bin
 export PATH
 
 # If not running interactively, don't do anything
@@ -161,3 +161,9 @@ fi
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 [ -f "/home/jell/.ghcup/env" ] && source "/home/jell/.ghcup/env" # ghcup-env
 . "$HOME/.cargo/env"
+
+# GO stuff
+export GOPRIVATE="github.com/Zimpler/*,gitlab.zimpler.com/*"
+
+# Zimpler stuff
+export ZIMPLER_ECR_REGISTRY=527101772357.dkr.ecr.eu-central-1.amazonaws.com
