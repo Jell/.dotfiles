@@ -16,3 +16,4 @@ export PATH="/usr/local/opt/libpq/bin:$PATH"
 [[ -f ~/.cargo/env ]] && source ~/.cargo/env
 export PATH="$PATH:/Users/jell/.nsc/bin"
 . "$HOME/.cargo/env"
+eval "$(rbenv init - bash)"

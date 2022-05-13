@@ -167,3 +167,4 @@ export GOPRIVATE="github.com/Zimpler/*,gitlab.zimpler.com/*"
 
 # Zimpler stuff
 export ZIMPLER_ECR_REGISTRY=527101772357.dkr.ecr.eu-central-1.amazonaws.com
+export PATH="$HOME/.rbenv/bin:$PATH"
