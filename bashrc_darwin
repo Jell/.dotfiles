@@ -1,10 +1,13 @@
+# shutup macos!
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 export PATH=~/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/sbin:/usr/X11/bin:/usr/bin:/sbin:/bin:/usr/local/sbin:~/.local/bin/:~/bin:$PATH
 
 ## Add path to rbenv
 export PATH=~/.rbenv/bin:$PATH
 
-## Path to firefox CLI
-export PATH=/opt/homebrew-cask/Caskroom/firefox/latest/Firefox.app/Contents/MacOS:$PATH
+# Set PATH, MANPATH, etc., for Homebrew.
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 ## Rsense
 export RSENSE_HOME='/usr/local/lib/rsense-0.3'

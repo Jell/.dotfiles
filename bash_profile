@@ -1,6 +1,3 @@
-# shutup macos!
-export BASH_SILENCE_DEPRECATION_WARNING=1
-
 if [ -f ~/.bashrc ]; then
   source ~/.bashrc
 fi
@@ -23,5 +20,3 @@ export PATH="$PATH:/Users/jell/.nsc/bin"
 eval "$(rbenv init - bash)"
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-# Set PATH, MANPATH, etc., for Homebrew.
-eval "$(/opt/homebrew/bin/brew shellenv)"
