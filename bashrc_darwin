@@ -18,12 +18,6 @@ export PATH=$PATH:/usr/texbin:/Library/TeX/texbin
 ## Go bins
 export PATH=$PATH:~/go/bin/
 
-## Deploy scripts
-export PATH=$PATH:~/Zimpler/arthur
-
-## kubebuilder
-export PATH=$PATH:/usr/local/kubebuilder/bin
-
 ##
 # Your previous ~/.bash_profile file was backed up as ~/.bash_profile.macports-saved_2010-07-18_at_16:02:30
 ##
