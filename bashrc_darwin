@@ -158,10 +158,6 @@ function set-keychain-environment-variable () {
     security add-generic-password -U -a "${USER}" -D "environment variable" -s "${1}" -w "${secret}"
 }
 
-GITHUB_REPO_ADMIN="$(keychain-environment-variable GITHUB_REPO_ADMIN)"
-export GITHUB_REPO_ADMIN
-export GITHUB_TOKEN=$GITHUB_REPO_ADMIN
-
 function backup-github () {
   curl -s "https://$GITHUB_REPO_ADMIN:@api.github.com/orgs/Zimpler/repos?per_page=100&page=1" \
     | jq ".[].ssh_url" \
@@ -242,7 +238,6 @@ complete -F __start_kubectl k
 
 eval "$(direnv hook bash)"
 [ -f "/Users/jell/.ghcup/env" ] && source "/Users/jell/.ghcup/env" # ghcup-env
-source "$HOME/.cargo/env"
 
 alias nats_box="docker run --rm -it --net=host synadia/nats-box"
 
