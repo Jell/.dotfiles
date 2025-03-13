@@ -251,3 +251,12 @@ export DOCKER_DEFAULT_PLATFORM=linux/amd64
 . "$HOME/.cargo/env"
 
 export DOTNET_ROOT="/opt/homebrew/opt/dotnet/libexec"
+
+function ulimit-fix {
+  sudo launchctl limit maxfiles 256 unlimited
+  sudo launchctl limit maxfiles 128000 524288
+}
+
+function chromium-quanranteen-fix {
+  xattr -d com.apple.quarantine /opt/homebrew/bin/chromedriver
+}

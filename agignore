@@ -1,4 +1,5 @@
 vendor/*
+app/assets/images/*
 db/er_diagram*
 resources/public/javascripts/jquery*
 spec/fixtures/vcr_cassettes/

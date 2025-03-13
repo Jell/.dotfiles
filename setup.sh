@@ -5,7 +5,6 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ln -sf "$DIR/bash_profile" ~/.bash_profile
 ln -sf "$DIR/gemrc"        ~/.gemrc
 ln -sf "$DIR/irbrc"        ~/.irbrc
-ln -sf "$DIR/rvmrc"        ~/.rvmrc
 ln -sf "$DIR/ctags"        ~/.ctags
 ln -sf "$DIR/my.cnf"       ~/.my.cnf
 ln -sf "$DIR/ackrc"        ~/.ackrc
