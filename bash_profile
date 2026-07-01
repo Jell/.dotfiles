@@ -25,3 +25,4 @@ if [ -f '/Users/jell/bin/google-cloud-sdk/path.bash.inc' ]; then . '/Users/jell/
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/jell/bin/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/jell/bin/google-cloud-sdk/completion.bash.inc'; fi
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
